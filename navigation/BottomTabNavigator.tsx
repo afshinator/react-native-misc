@@ -35,7 +35,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Clock"
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => (
