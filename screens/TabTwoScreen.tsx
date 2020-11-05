@@ -12,15 +12,16 @@ export default class TabTwoScreen extends React.Component {
   state = {
     index: new Animated.Value(0),
     tick: new Animated.Value(0),
-    scales: [...Array(6).keys()].map(() => new Animated.Value(0)),
+    scales: [0,1,2,3,5,6].map(() => new Animated.Value(0)),
+    //scales: [...Array(6).keys()].map(() => new Animated.Value(0)), // TS(2569)
   };
 
   _timer = 0;
-  _ticker = null;
+  _ticker: number | Timeout | null = null;  // 🤔 not sure how to correctly type what setInterval returns!
 
   componentDidMount() {
     const current = dayjs();
-    const diff = current.endOf("day").diff(current, "seconds");
+    const diff = current.endOf("day").diff(current, "second");
     const oneDay = 24 * 60 * 60;
 
     this._timer = oneDay - diff;
@@ -28,7 +29,7 @@ export default class TabTwoScreen extends React.Component {
     this.state.index.setValue(this._timer - 30); // to avoid initial jump
 
     this._animate();
-    this._ticker = setInterval(() => {
+    this._ticker = window.setInterval(() => {
       this._timer += 1;
       this.state.tick.setValue(this._timer);
     }, TICK_INTERVAL);
@@ -102,27 +103,24 @@ export default class TabTwoScreen extends React.Component {
 
     return (
       <View style={styles.outterContainer}>
+        <StatusBar hidden={true} />
+        <Animated.View style={[styles.big, { transform: [{ scale: big }] }]} />
+        <Animated.View
+          style={[styles.medium, { transform: [{ scale: med }] }]}
+        />
 
-          <StatusBar hidden={true} />
-          <Animated.View
-            style={[styles.big, { transform: [{ scale: big }] }]}
-          />
-          <Animated.View
-            style={[styles.medium, { transform: [{ scale: med }] }]}
-          />
-
-          <Animated.View style={[styles.mover, transformHours]}>
-            <View style={[styles.hours]} />
-          </Animated.View>
-          <Animated.View style={[styles.mover, transformMinutes]}>
-            <View style={[styles.minutes]} />
-          </Animated.View>
-          <Animated.View style={[styles.mover, transformSeconds]}>
-            <View style={[styles.seconds]} />
-          </Animated.View>
-          <Animated.View
-            style={[styles.small, { transform: [{ scale: small }] }]}
-          />
+        <Animated.View style={[styles.mover, transformHours]}>
+          <View style={[styles.hours]} />
+        </Animated.View>
+        <Animated.View style={[styles.mover, transformMinutes]}>
+          <View style={[styles.minutes]} />
+        </Animated.View>
+        <Animated.View style={[styles.mover, transformSeconds]}>
+          <View style={[styles.seconds]} />
+        </Animated.View>
+        <Animated.View
+          style={[styles.small, { transform: [{ scale: small }] }]}
+        />
 
         <View style={styles.filler}></View>
       </View>
@@ -188,6 +186,6 @@ const styles = StyleSheet.create({
   },
 
   filler: {
-    height: 300
-  }
+    height: 300,
+  },
 });
