@@ -15,31 +15,8 @@ export const assets = stories
   .flat();
 
 const Stack = createStackNavigator<SnapchatRoutes>();
-const Navigator = () => (
-  <Stack.Navigator
-    screenOptions={{
-      gestureEnabled: false,
-      headerShown: false,
-      cardOverlayEnabled: true,
-      cardStyle: { backgroundColor: "transparent" },
-    }}
-    mode="modal"
-  >
-    <Stack.Screen name="Snapchat" component={Snapchat} />
-    <Stack.Screen name="Story" component={StoryComp} />
-  </Stack.Navigator>
-);
 
 export default function TabOneScreen() {
-  /*
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab 1 - Snapchat clone</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.js" />
-    </View>
-  );
-  */
   return (
     <Stack.Navigator
       screenOptions={{
