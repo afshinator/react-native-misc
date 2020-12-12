@@ -11,6 +11,13 @@ import {
   Dimensions,
 } from "react-native";
 
+
+/*
+  Sliding animated Tab bar
+  using Animated from react native
+
+*/
+
 const { width } = Dimensions.get("window");
 
 export default class App extends React.Component {
