@@ -20,7 +20,7 @@ export default function TabOneScreen() {
   return (
     <Stack.Navigator
       screenOptions={{
-        gestureEnabled: false,
+        gestureEnabled: true,
         headerShown: false,
         cardOverlayEnabled: true,
         cardStyle: { backgroundColor: "transparent" },
